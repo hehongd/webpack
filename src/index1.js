@@ -5,6 +5,6 @@ import $ from 'jquery'
 $(function() {
     //3、实现寄偶行变色
     //寄数行为红色
-    $('li:odd').css('background-color','red')
-    $('li:even').css('background-color','pink')
+    $('li:odd').css('background-color', 'red')
+    $('li:even').css('background-color', 'yellow')
 })

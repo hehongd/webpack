@@ -8,7 +8,7 @@
 6.通过ES6模块化方式导入jQuery,实现列表隔行变色效果
 
 二.webpack的基本使用
-1.安装webpack相关的两个包：npm install webpack@5.42.1 webpack-cli@4.7.2 -D（-D是--save-dev的简写）
+1.安装webpack相关的两个包：npm install webpack@4.46.0 webpack-cli@4.9.2 -D（-D是--save-dev的简写）
 2.webpack的配置
 a.在项目跟目录中，创建名为webpack.config.js的webpack配置文件，并初始化如下的配置：
 module.exports = {
@@ -46,7 +46,7 @@ b. html-webpack-plugin
    . webpack 中的 HTML 插件（类似于一个模板引擎插件）
    . 可以通过此插件自定制 index.html 页面的内容
 2.1 安装 webpack-dev-server
-运行 npm install webpack-dev-server@3.11.2 -D
+运行 npm install webpack webpack-cli --save-dev 或者指定版本号 npm install webpack-dev-server@3.11.2 -D （在根目录下隐藏一个js文件在硬盘中不可见）
 2.2 配置 webpack-dev-server
 a. 修改 package.json -> script 中的 dev 命令如下：
 "scripts": {
@@ -55,6 +55,46 @@ a. 修改 package.json -> script 中的 dev 命令如下：
 b .再次运行 npm run dev 命令，重新运行项目的打包
 c .在浏览器中访问 http://localhost:8080 地址，查看自动打包效果
 注意：webpack-dev0server 会启动一个实时打包的 http 服务器
+3.1 安装 html-webpack-plugin 
+运行如下命令，即可在项目中安装此插件：
+npm install html-webpack-plugin@4.5.0 -D (作用是可以把指定的页面复制一份放到根目录里面)
+3.2 配置 html-webpack-plugin (webpack.config.js文件里配置)
+// 1. 导入 HTML 插件，得到一个构造函数
+const HtmlPlugin = require('html-webpack-plugin')
+// 2. 创建 HTML 插件的实例对象
+const htmlPlugin = new HtmlPlugin({
+  template:'./src/index.html', // 指定源文件的存放路径
+  filename:'./index.html', // 指定生成的文件的存放路径
+})
+
+module.exports = {
+  mode'development',
+  plugins:[htmlPlugin], // 3. 通过plugins节点，使 htmlPlugin 插件生效
+}
+3.3 解疑惑 html-webpack-plugin
+a. 通过 HTML 插件复制到根目录中的index.html页面，也被放到了内存中
+b. HTML 插件在生成index.html页面，自动注入了打包的bundle.js文件
+
+4. devServer 节点
+在webpack.config.js 配置文件中，可以通过devServer节点对webpack-dev-server插件进行更多的配置，
+示例代码如下：
+devServer: {
+  open:true, // 初次打包完成后，自动打开浏览器
+  host:'127.0.0.1', // 实时打包所使用的主机地址
+  port:80, // 实时打包所使用的端口
+}
+注意：凡是修改了webpack.config.js配置文件，或者改了package.json配置文件，必须重启实时打包的服务器，
+否则最新的配置文件无法生效
+
+5. webpack 中的loader
+a. loader 概述
+在实际开发过程中，webpack默认只能打包处理以.js后缀名结尾的模块。其他非.js后缀结尾的模块，
+webpack默认处理不了，需要调用loader加载器才可以正常打包，否则会报错!
+
+loader 加载器的作用：协助webpack打包处理特定的文件模块。比如：
+css-loader可以打包处理.css相关的文件
+less-loader可以打包处理.less相关的文件
+babel-loader可以打包处理webpack无法处理的高级JS语法
 
 四.package.json说明
 {
