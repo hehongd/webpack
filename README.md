@@ -1,4 +1,4 @@
-
+<pre>
 一.新建项目
 1.新建项目空白目录，并且运行npm init -y命令，初始化包管理配置文件package.json
 2.新建src源代码目录
@@ -275,3 +275,4 @@ i. 安装vuejs的调试工具
         "webpack-dev-server": "^3.11.2"
     }
 }
+</pre>
