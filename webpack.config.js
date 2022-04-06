@@ -57,3 +57,8 @@ module.exports = {
         }
     }
 }
+
+
+// 需要设置用户环境：用户变量加入 cmd 所在路径
+//需要设置系统变量：%SystemRoot%\system32;
+// 再关闭vscode 重新启动
